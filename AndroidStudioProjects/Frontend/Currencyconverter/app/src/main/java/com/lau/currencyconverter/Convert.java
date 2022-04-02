@@ -20,9 +20,9 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
     private EditText enter;
     private TextView result;
     private ImageView currencies;
-    private boolean isNotImg;
-    private int tag;
+    private boolean isPlaying;
 
+    MediaPlayer player;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +43,18 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         currencies= (ImageView) findViewById(R.id.imageView3);
         if (position==0){
             currencies.setImageResource(R.drawable.img);
-            tag=R.drawable.img;
-            isNotImg=false;
+
+
         }
         if (position==1){
             currencies.setImageResource(R.drawable.img3);
-            tag=R.drawable.img3;
-            isNotImg=false;
+
+
         }
         if (position==2){
             currencies.setImageResource(R.drawable.img2);
-            tag=R.drawable.img2;
-            isNotImg=false;
+
+
         }
     }
 
@@ -85,6 +85,23 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         }catch (NumberFormatException e){
             Toast.makeText(this, "Enter a number", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    public void rick(View v) {
+        if (player == null) {
+            player = MediaPlayer.create(getApplicationContext(), R.raw.rick);
+        }
+        if (isPlaying == true){
+            player.stop();
+            isPlaying = false;
+            player=null;
+        }
+        else {
+            player.start();
+            isPlaying=true;
+        }
+
     }
 
 
