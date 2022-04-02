@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CurrencyConverter">
         <activity
+            android:name=".Patreon"
+            android:exported="false" />
+        <activity
             android:name=".Support"
             android:exported="false" />
         <activity

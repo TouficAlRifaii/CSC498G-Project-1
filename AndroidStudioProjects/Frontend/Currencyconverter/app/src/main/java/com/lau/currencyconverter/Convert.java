@@ -2,6 +2,7 @@ package com.lau.currencyconverter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
@@ -135,6 +136,10 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
             isPlaying=true;
         }
 
+    }
+    public void fairyTail(View v){
+        Intent intent= new Intent(getApplicationContext(),Support.class);
+        startActivity(intent);
     }
 
 

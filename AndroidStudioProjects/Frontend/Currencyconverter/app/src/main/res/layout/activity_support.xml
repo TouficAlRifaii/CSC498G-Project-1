@@ -80,6 +80,7 @@
         android:id="@+id/button2"
         android:layout_width="153dp"
         android:layout_height="53dp"
+        android:onClick="patreon"
         android:text="Patreon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
