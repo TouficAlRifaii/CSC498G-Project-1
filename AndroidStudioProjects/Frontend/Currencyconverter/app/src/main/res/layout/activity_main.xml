@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="0.895" />
 
     <TextView
         android:id="@+id/textView"
@@ -32,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.201" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -44,7 +44,20 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.435"
+        app:layout_constraintVertical_bias="0.639"
         app:srcCompat="@drawable/img1" />
+
+    <Button
+        android:id="@+id/fairyTail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="fairyTail"
+        android:text="Support us"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.914"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.065" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

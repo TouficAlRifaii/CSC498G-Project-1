@@ -40,17 +40,32 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         enter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                button.setEnabled(false);
+                if (spinner.getSelectedItem().equals("USD") || spinner.getSelectedItem().equals("LBP")){
+                    button.setEnabled(true);
+                }
+                else
+                    button.setEnabled(false);
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                button.setEnabled(true);
+                if (spinner.getSelectedItem().equals("USD") || spinner.getSelectedItem().equals("LBP")){
+                    button.setEnabled(true);
+                }
+                else
+                    button.setEnabled(false);
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                button.setEnabled(true);
+
+                if (spinner.getSelectedItem().equals("USD") || spinner.getSelectedItem().equals("LBP")){
+                    button.setEnabled(true);
+                }
+                else
+                    button.setEnabled(false);
+
             }
         });
     }
@@ -76,7 +91,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        button.setEnabled(false);
     }
     public void convert(View v){
         String s=spinner.getSelectedItem()+"";

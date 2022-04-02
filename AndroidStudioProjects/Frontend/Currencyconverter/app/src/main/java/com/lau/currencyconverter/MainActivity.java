@@ -32,5 +32,9 @@ public class MainActivity extends AppCompatActivity {
         }
         player.start();
     }
+    public void fairyTail(View v){
+        Intent intent= new Intent(getApplicationContext(),Support.class);
+        startActivity(intent);
+    }
 
 }
