@@ -2,7 +2,7 @@
     <string name="app_name">Currency converter</string>
 
     <string-array name="value">
-        <item>--Select item--</item>
+        <item>--Select currency--</item>
         <item>LBP</item>
         <item>USD</item>
 

@@ -2,11 +2,13 @@ package com.lau.currencyconverter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,10 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
     Spinner spinner;
     private EditText enter;
     private TextView result;
+    private ImageView currencies;
+    private boolean isNotImg;
+    private int tag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +38,24 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
 
     }
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+        String text = parent.getItemAtPosition(position).toString();
+        currencies= (ImageView) findViewById(R.id.imageView3);
+        if (position==0){
+            currencies.setImageResource(R.drawable.img);
+            tag=R.drawable.img;
+            isNotImg=false;
+        }
+        if (position==1){
+            currencies.setImageResource(R.drawable.img3);
+            tag=R.drawable.img3;
+            isNotImg=false;
+        }
+        if (position==2){
+            currencies.setImageResource(R.drawable.img2);
+            tag=R.drawable.img2;
+            isNotImg=false;
+        }
     }
 
     @Override
@@ -64,5 +86,6 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
             Toast.makeText(this, "Enter a number", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }
