@@ -4,22 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.InputMismatchException;
-
 public class Convert extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spinner;
     private EditText enter;
     private TextView result;
-    private ImageView currencies;
+    private Button button;
     private boolean isPlaying;
 
     MediaPlayer player;
@@ -35,15 +36,30 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         spinner.setOnItemSelectedListener(this);
         result=(TextView) findViewById(R.id.result);
         enter=(EditText) findViewById(R.id.input);
+        button= (Button) findViewById(R.id.convert);
+        enter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                button.setEnabled(false);
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                button.setEnabled(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                button.setEnabled(true);
+            }
+        });
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-        String text = parent.getItemAtPosition(position).toString();
-        currencies= (ImageView) findViewById(R.id.imageView3);
+        ImageView currencies = (ImageView) findViewById(R.id.imageView3);
         if (position==0){
             currencies.setImageResource(R.drawable.img);
-
+            button.setEnabled(false);
 
         }
         if (position==1){
@@ -68,12 +84,14 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
             double input=Double.parseDouble(enter.getText().toString());
             if(enter.getText().length()!=0){
                 if (s.equals("USD")){
-                    result.setText(input*22000 +"LBP");
-                    result.setAlpha(1.0F);
+                    String concatenated=input*22000 +"LBP";
+                    result.setText(concatenated);
+                    result.animate().alpha(1.0F);
                 }
                 else if (s.equals("LBP")){
-                    result.setText(input/22000 +"USD");
-                    result.setAlpha(1.0F);
+                    String concatenated=input/22000 +"USD";
+                    result.setText(concatenated);
+                    result.animate().alpha(1.0F);
                 }
                 else{
                     Toast.makeText(this, "Enter a currency", Toast.LENGTH_SHORT).show();
@@ -92,7 +110,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), R.raw.rick);
         }
-        if (isPlaying == true){
+        if (isPlaying){
             player.stop();
             isPlaying = false;
             player=null;
