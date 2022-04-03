@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
                 return null;
             }
-            Log.i("rate" , rate);
             return rate;
         }
 
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("rate", rate);
 
             }catch(Exception e){
-                Log.i("WTF" , "WTF");
+                e.printStackTrace();
             }
         }
 
