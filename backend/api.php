@@ -9,8 +9,6 @@ $response = curl_exec($curl);
 curl_close($curl);
 $stdClass = (json_decode($response));
 $arr = json_decode(json_encode($stdClass) , true) ;
-//echo $response;
-echo gettype($arr);
 $rate = $arr['omt'][count($arr['omt']) -1][1]; 
 echo $rate;
 
