@@ -9,7 +9,10 @@ $response = curl_exec($curl);
 curl_close($curl);
 $stdClass = (json_decode($response));
 $arr = json_decode(json_encode($stdClass) , true) ;
-$rate = $arr['omt'][count($arr['omt']) -1][1]; 
-echo $rate;
+$rate = [] ;
+$rate["rate"] = $arr['omt'][count($arr['omt']) -1][1]; 
+
+$json_rate = json_encode($rate);
+echo $json_rate;
 
 ?>

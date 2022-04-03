@@ -22,7 +22,7 @@ public class Support extends AppCompatActivity {
         logo=(ImageView) findViewById(R.id.logo);
     }
     public void change(View v){//this takes us back to the conversion page
-        if (player != null){//i use this so that the song does not keep playing when we switch activities
+        if (player != null){
             player.stop();
             isPlaying = false;
             player=null;
