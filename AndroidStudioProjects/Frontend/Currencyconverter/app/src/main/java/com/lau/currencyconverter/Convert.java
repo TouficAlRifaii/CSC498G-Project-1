@@ -66,6 +66,14 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
                 }
                 else
                     button.setEnabled(false);
+                if (enter.getText().toString().equals("")){
+
+                    button.setEnabled(false);
+                }
+                else{
+
+                    button.setEnabled(true);
+                }
 
             }
         });
@@ -80,12 +88,24 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         }
         if (position==1){
             currencies.setImageResource(R.drawable.img3);
+            if (enter.getText().toString().equals("")){
 
+                button.setEnabled(false);
+            }
+            else{
+
+                button.setEnabled(true);
+            }
 
         }
         if (position==2){
             currencies.setImageResource(R.drawable.img2);
-
+            if (enter.getText().toString().equals("")){
+                button.setEnabled(false);
+            }
+            else{
+                button.setEnabled(true);
+            }
 
         }
     }
