@@ -165,6 +165,11 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
 
     }
     public void fairyTail(View v) {//this method takes us to the thank you page
+        if (player != null){
+            player.stop();
+            isPlaying = false;
+            player=null;
+        }
         Intent intent = new Intent(getApplicationContext(), Support.class);
         startActivity(intent);
     }
