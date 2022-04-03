@@ -65,8 +65,8 @@
 
     <TextView
         android:id="@+id/result"
-        android:layout_width="407dp"
-        android:layout_height="62dp"
+        android:layout_width="414dp"
+        android:layout_height="83dp"
         android:alpha="0"
         android:text="TextView"
         android:textAlignment="center"
@@ -94,8 +94,8 @@
 
     <ImageView
         android:id="@+id/rick"
-        android:layout_width="80dp"
-        android:layout_height="65dp"
+        android:layout_width="56dp"
+        android:layout_height="55dp"
         android:onClick="rick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
