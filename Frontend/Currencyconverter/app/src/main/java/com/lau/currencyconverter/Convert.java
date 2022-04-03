@@ -43,6 +43,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Convert extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     //i am creating my variables that will be used in the future methods
@@ -217,14 +218,17 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
             double input=Double.parseDouble(enter.getText().toString());
             if(enter.getText().length()!=0){
                 if (s.equals("USD")){
-                    String concatenated=input * Integer.parseInt(rate)  +"LBP";
-                    result.setText(concatenated);
-                    result.animate().alpha(1.0F);
+                   // String concatenated=input * Integer.parseInt(rate)  +"LBP";
+                    sendPostRequest(Double.toString(input) , rate ,s.toLowerCase(Locale.ROOT));
+//                    result.setText(concatenated);
+//                    result.animate().alpha(1.0F);
+
                 }
                 else if (s.equals("LBP")){
-                    String concatenated=input/Integer.parseInt(rate) +"USD";
-                    result.setText(concatenated);
-                    result.animate().alpha(1.0F);
+                  //  String concatenated=input/Integer.parseInt(rate) +"USD";
+                    sendPostRequest(Double.toString(input) , rate ,s.toLowerCase(Locale.ROOT));
+//                    result.setText(concatenated);
+//                    result.animate().alpha(1.0F);
                 }
                 else{
                     Toast.makeText(this, "Enter a currency", Toast.LENGTH_SHORT).show();
@@ -236,6 +240,8 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         }catch (NumberFormatException e){
             Toast.makeText(this, "Enter a number", Toast.LENGTH_SHORT).show();
         }
+        String result = "" ;
+        String url = "http://192.168.11.108/CSC498G-Project-1/backend/post.php";
 
 
     }
@@ -322,13 +328,17 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
             }
 
             @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
+            protected void onPostExecute(String s){
+                super.onPostExecute(s);
 
-                if(result.equals("working")){
-                    Toast.makeText(getApplicationContext(), "HTTP POST is working...", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Invalid POST req...", Toast.LENGTH_LONG).show();
+                try{
+                    JSONObject json = new JSONObject(s);
+                    String result = json.getString("result");
+                    Log.i("result" , result);
+
+
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
         }
