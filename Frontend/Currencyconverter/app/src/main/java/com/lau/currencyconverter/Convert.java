@@ -27,7 +27,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
 
     MediaPlayer player;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//in here we should add lines of code that change the view that shows the lira rate so that it updates in real time
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_convert);
         //create the spinner that holds the two currencies
@@ -164,12 +164,8 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         }
 
     }
-    public void fairyTail(View v){//this method takes us to the thank you page
-        Intent intent= new Intent(getApplicationContext(),Support.class);
+    public void fairyTail(View v) {//this method takes us to the thank you page
+        Intent intent = new Intent(getApplicationContext(), Support.class);
         startActivity(intent);
     }
-    //we need to add a method after the completion of the api so that we change the text that shows the lira rate
-    //according to the website and the actual rate so that the user can see the difference.
-
-
 }
