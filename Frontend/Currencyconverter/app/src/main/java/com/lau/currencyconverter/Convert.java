@@ -37,10 +37,11 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
     String rate;
     TextView rateDisplay;
     public class DownloadTask extends AsyncTask<String, Void, String> {
+        public String rateInside = "" ;
 
 
         protected String doInBackground(String... urls){
-            rate = "" ;
+            String getting = "" ;
             URL url;
             HttpURLConnection http;
 
@@ -54,7 +55,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
 
                 while( data != -1){
                     char current = (char) data;
-                    rate += current;
+                    getting += current;
                     data = reader.read();
 
                 }
@@ -62,7 +63,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
                 e.printStackTrace();
                 return null;
             }
-            return rate;
+            return getting;
         }
 
 
@@ -73,12 +74,15 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
                 JSONObject json = new JSONObject(s);
                 rate = json.getString("rate");
                 rateDisplay.setText("Current rate: 1 USD = " + rate + " LBP");
-                //Log.i("rate", rate);
+
 
             }catch(Exception e){
                 e.printStackTrace();
+
             }
+
         }
+
 
     }
     @Override
@@ -86,12 +90,15 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_convert);
 
+
         rateDisplay = (TextView) findViewById(R.id.displayRate);
         String url = "http://192.168.11.108/CSC498G-Project-1/backend/api.php";
         DownloadTask task = new DownloadTask();
         task.execute(url);
+        Log.i("rateInside",task.rateInside);
+        rate = task.rateInside;
 
-        //Log.i("rate", rate);
+        Log.i("rate", rate);
 
         //create the spinner that holds the two currencies
         spinner =   findViewById(R.id.value);
@@ -186,17 +193,18 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
 
     //this method is to be modified after the completion of the api since we need to send it there compute it and get it back
     public void convert(View v){
+        Log.i("rate" , rate);
         String s=spinner.getSelectedItem()+"";
         try{
             double input=Double.parseDouble(enter.getText().toString());
             if(enter.getText().length()!=0){
                 if (s.equals("USD")){
-                    String concatenated=input*22000 +"LBP";
+                    String concatenated=input * Integer.parseInt(rate)  +"LBP";
                     result.setText(concatenated);
                     result.animate().alpha(1.0F);
                 }
                 else if (s.equals("LBP")){
-                    String concatenated=input/22000 +"USD";
+                    String concatenated=input/Integer.parseInt(rate) +"USD";
                     result.setText(concatenated);
                     result.animate().alpha(1.0F);
                 }
