@@ -22,12 +22,23 @@ public class Support extends AppCompatActivity {
         logo=(ImageView) findViewById(R.id.logo);
     }
     public void change(View v){//this takes us back to the conversion page
+        if (player != null){
+            player.stop();
+            isPlaying = false;
+            player=null;
+        }
         Intent intent= new Intent(getApplicationContext(),Convert.class);
         startActivity(intent);
     }
     public void patreon(View v){//this takes us to the placeholder patreon page
+        if (player != null){
+            player.stop();
+            isPlaying = false;
+            player=null;
+        }
         Intent intent= new Intent(getApplicationContext(),Patreon.class);
         startActivity(intent);
+
     }
     public void ft(View v) {//this method is used when we click on our team logo to change it and play our team soundtrack
         if (player == null) {
