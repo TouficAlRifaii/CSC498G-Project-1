@@ -19,12 +19,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Convert extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     //i am creating my variables that will be used in the future methods
@@ -74,7 +92,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
                 JSONObject json = new JSONObject(s);
                 rate = json.getString("rate");
                 rateDisplay.setText("Current rate: 1 USD = " + rate + " LBP");
-
+                rateInside = rate;
 
             }catch(Exception e){
                 e.printStackTrace();
@@ -218,7 +236,112 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         }catch (NumberFormatException e){
             Toast.makeText(this, "Enter a number", Toast.LENGTH_SHORT).show();
         }
+
+
     }
+
+    private void sendPostRequest(String givenAmount, String givenRate , String givenCurrency) {
+
+        class SendPostReqAsyncTask extends AsyncTask<String, Void, String>{
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                String paramAmount = params[0];
+                String paramRate = params[1];
+                String paramCurrency = params[2];
+
+
+                HttpClient httpClient = new DefaultHttpClient();
+
+                // In a POST request, we don't pass the values in the URL.
+                //Therefore we use only the web page URL as the parameter of the HttpPost argument
+                HttpPost httpPost = new HttpPost("http://192.168.11.108/CSC498G-Project-1/backend/post.php");
+
+                // Because we are not passing values over the URL, we should have a mechanism to pass the values that can be
+                //uniquely separate by the other end.
+                //To achieve that we use BasicNameValuePair
+                //Things we need to pass with the POST request
+                BasicNameValuePair amountBasicNameValuePair = new BasicNameValuePair("paramAmount", paramAmount);
+                BasicNameValuePair rateBasicNameValuePAir = new BasicNameValuePair("paramRate", paramRate);
+                BasicNameValuePair currencyBasicNameValuePAir = new BasicNameValuePair("paramCurrency", paramCurrency);
+
+                // We add the content that we want to pass with the POST request to as name-value pairs
+                //Now we put those sending details to an ArrayList with type safe of NameValuePair
+                List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>();
+                nameValuePairList.add(amountBasicNameValuePair);
+                nameValuePairList.add(rateBasicNameValuePAir);
+                nameValuePairList.add(currencyBasicNameValuePAir);
+
+
+                try {
+                    // UrlEncodedFormEntity is an entity composed of a list of url-encoded pairs.
+                    //This is typically useful while sending an HTTP POST request.
+                    UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairList);
+
+                    // setEntity() hands the entity (here it is urlEncodedFormEntity) to the request.
+                    httpPost.setEntity(urlEncodedFormEntity);
+
+                    try {
+                        // HttpResponse is an interface just like HttpPost.
+                        //Therefore we can't initialize them
+                        HttpResponse httpResponse = httpClient.execute(httpPost);
+
+                        // According to the JAVA API, InputStream constructor do nothing.
+                        //So we can't initialize InputStream although it is not an interface
+                        InputStream inputStream = httpResponse.getEntity().getContent();
+
+                        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                        StringBuilder stringBuilder = new StringBuilder();
+
+                        String bufferedStrChunk = null;
+
+                        while((bufferedStrChunk = bufferedReader.readLine()) != null){
+                            stringBuilder.append(bufferedStrChunk);
+                        }
+
+                        return stringBuilder.toString();
+
+                    } catch (ClientProtocolException cpe) {
+                        System.out.println("First Exception case of HttpResponese :" + cpe);
+                        cpe.printStackTrace();
+                    } catch (IOException ioe) {
+                        System.out.println("Second Exception case of HttpResponse :" + ioe);
+                        ioe.printStackTrace();
+                    }
+
+                } catch (UnsupportedEncodingException uee) {
+                    System.out.println("An Exception given because of UrlEncodedFormEntity argument :" + uee);
+                    uee.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                if(result.equals("working")){
+                    Toast.makeText(getApplicationContext(), "HTTP POST is working...", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Invalid POST req...", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
+        SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
+        sendPostReqAsyncTask.execute(givenAmount, givenRate , givenCurrency);
+    }
+
+
+
+
+
+
 
 
     public void rick(View v) {//this method is used when we click on the small image in the lower corner to activate the easter egg
