@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Convert extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    //i am creating my variables that will be used in the future methods
     Spinner spinner;
     private EditText enter;
     private TextView result;
@@ -29,17 +30,19 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_convert);
-        spinner = (Spinner)  findViewById(R.id.value);
+        //create the spinner that holds the two currencies
+        spinner =   findViewById(R.id.value);
         ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.value, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-        result=(TextView) findViewById(R.id.result);
-        enter=(EditText) findViewById(R.id.input);
-        button= (Button) findViewById(R.id.convert);
-        enter.addTextChangedListener(new TextWatcher() {
+        result= findViewById(R.id.result);
+        enter= findViewById(R.id.input);
+        button=  findViewById(R.id.convert);
+        enter.addTextChangedListener(new TextWatcher() {//this allows me to keep track of whether or not the user inputed a value
             @Override
+            //this is executed when the text has not changed
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (spinner.getSelectedItem().equals("USD") || spinner.getSelectedItem().equals("LBP")){
                     button.setEnabled(true);
@@ -49,6 +52,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
             }
 
             @Override
+            //this is executed when the text is being changed
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (spinner.getSelectedItem().equals("USD") || spinner.getSelectedItem().equals("LBP")){
                     button.setEnabled(true);
@@ -59,6 +63,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
             }
 
             @Override
+            //this is executed after the text was changed
             public void afterTextChanged(Editable editable) {
 
                 if (spinner.getSelectedItem().equals("USD") || spinner.getSelectedItem().equals("LBP")){
@@ -79,12 +84,12 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         });
     }
     @Override
+    //this is executed on selecting items in the spinner
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-        ImageView currencies = (ImageView) findViewById(R.id.imageView3);
+        ImageView currencies =  findViewById(R.id.imageView3);
         if (position==0){
             currencies.setImageResource(R.drawable.img);
             button.setEnabled(false);
-
         }
         if (position==1){
             currencies.setImageResource(R.drawable.img3);
@@ -114,6 +119,8 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
     public void onNothingSelected(AdapterView<?> adapterView) {
         button.setEnabled(false);
     }
+
+    //this method is to be modified after the completion of the api since we need to send it there compute it and get it back
     public void convert(View v){
         String s=spinner.getSelectedItem()+"";
         try{
@@ -142,7 +149,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
     }
 
 
-    public void rick(View v) {
+    public void rick(View v) {//this method is used when we click on the small image in the lower corner to activate the easter egg
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), R.raw.rick);
         }
@@ -157,10 +164,12 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         }
 
     }
-    public void fairyTail(View v){
+    public void fairyTail(View v){//this method takes us to the thank you page
         Intent intent= new Intent(getApplicationContext(),Support.class);
         startActivity(intent);
     }
+    //we need to add a method after the completion of the api so that we change the text that shows the lira rate
+    //according to the website and the actual rate so that the user can see the difference.
 
 
 }

@@ -13,7 +13,7 @@ public class Patreon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patreon);
     }
-    public void change(View v){
+    public void change(View v){//takes us back to the conversion page
         Intent intent= new Intent(getApplicationContext(),Convert.class);
         startActivity(intent);
     }

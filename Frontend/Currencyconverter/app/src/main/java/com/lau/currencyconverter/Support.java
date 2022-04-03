@@ -13,11 +13,11 @@ public class Support extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
     }
-    public void change(View v){
+    public void change(View v){//this takes us back to the conversion page
         Intent intent= new Intent(getApplicationContext(),Convert.class);
         startActivity(intent);
     }
-    public void patreon(View v){
+    public void patreon(View v){//this takes us to the placeholder patreon page
         Intent intent= new Intent(getApplicationContext(),Patreon.class);
         startActivity(intent);
     }
