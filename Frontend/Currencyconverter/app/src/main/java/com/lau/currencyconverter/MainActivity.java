@@ -19,64 +19,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-
-    public class DownloadTask extends AsyncTask<String, Void, String> {
-
-        protected String doInBackground(String... urls){
-            String rate = "";
-            URL url;
-            HttpURLConnection http;
-
-            try{
-                url = new URL(urls[0]);
-                http = (HttpURLConnection) url.openConnection();
-
-                InputStream in = http.getInputStream();
-                InputStreamReader reader = new InputStreamReader(in);
-                int data = reader.read();
-
-                while( data != -1){
-                    char current = (char) data;
-                    rate += current;
-                    data = reader.read();
-
-                }
-            }catch(Exception e){
-                e.printStackTrace();
-                return null;
-            }
-            return rate;
-        }
-
-
-        protected void onPostExecute(String s){
-            super.onPostExecute(s);
-
-            try{
-                JSONObject json = new JSONObject(s);
-                String rate = json.getString("rate");
-                Log.i("rate", rate);
-
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-
     //i am creating my variables that will be used in the future methods
     private Button button;
     private ImageView image;
     MediaPlayer player;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String url = "http://192.168.11.108/CSC498G-Project-1/backend/api.php";
-        DownloadTask task = new DownloadTask();
-        task.execute(url);
+
         button=(Button) findViewById(R.id.next);
         image = (ImageView) findViewById(R.id.imageView2);
     }
