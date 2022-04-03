@@ -29,7 +29,7 @@ public class Support extends AppCompatActivity {
         Intent intent= new Intent(getApplicationContext(),Patreon.class);
         startActivity(intent);
     }
-    public void ft(View v) {//this method is used when we click on the small image in the lower corner to activate the easter egg
+    public void ft(View v) {//this method is used when we click on our team logo to change it and play our team soundtrack
         if (player == null) {
             player = MediaPlayer.create(getApplicationContext(), R.raw.fairytail);
         }
@@ -37,13 +37,13 @@ public class Support extends AppCompatActivity {
             player.stop();
             isPlaying = false;
             player=null;
-            
+            logo.setImageResource(R.drawable.img4);
         }
         else {
 
             player.start();
             isPlaying=true;
-
+            logo.setImageResource(R.drawable.firefairy);
         }
 
     }
