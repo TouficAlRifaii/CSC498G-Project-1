@@ -1,5 +1,14 @@
 <?php 
-$url = "https://lirarate.org/wp-json/lirarate/v2/omt?currency=LBP&_ver=t2022442";
+
+date_default_timezone_set("Asia/Beirut");
+
+$year = intval(date("Y"));
+$month = intval(date("m"));
+$day = intval(date("d"));
+$hour = intval (date("H"));
+$urlver = $year."".$month."".$day."".$hour;
+
+$url = "https://lirarate.org/wp-json/lirarate/v2/omt?currency=LBP&_ver=t$urlver";
 
 $curl = curl_init($url);
 curl_setopt($curl , CURLOPT_URL , $url);

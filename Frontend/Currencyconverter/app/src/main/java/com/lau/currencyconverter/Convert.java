@@ -210,7 +210,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
     public void onNothingSelected(AdapterView<?> adapterView) {
         button.setEnabled(false);
     }
-    
+
     public void convert(View v){
         Log.i("rate" , rate);
         String s=spinner.getSelectedItem()+"";
