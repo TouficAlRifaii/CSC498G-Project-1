@@ -54,6 +54,7 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
     private boolean isPlaying;
     MediaPlayer player;
     String rate;
+    String strResult;
     TextView rateDisplay;
     public class DownloadTask extends AsyncTask<String, Void, String> {
         public String rateInside = "" ;
@@ -240,7 +241,6 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
         }catch (NumberFormatException e){
             Toast.makeText(this, "Enter a number", Toast.LENGTH_SHORT).show();
         }
-        String result = "" ;
         String url = "http://192.168.11.108/CSC498G-Project-1/backend/post.php";
 
 
@@ -333,8 +333,9 @@ public class Convert extends AppCompatActivity implements AdapterView.OnItemSele
 
                 try{
                     JSONObject json = new JSONObject(s);
-                    String result = json.getString("result");
-                    Log.i("result" , result);
+                    strResult = json.getString("result");
+                    result.setText(strResult);
+                    Log.i("result" , strResult);
 
 
                 }catch(Exception e){
